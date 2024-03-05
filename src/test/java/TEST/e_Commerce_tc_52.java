@@ -1,0 +1,67 @@
+package TEST;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.google.common.collect.ImmutableMap;
+
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+
+public class e_Commerce_tc_52 extends BaseTest {
+	
+	
+	@BeforeMethod
+	public void presetup () {
+	Activity activity =new Activity ("com.google.android.apps.nexuslauncher","com.google.android.apps.nexuslauncher.NexusLauncherActivity");	
+	driver.startActivity(activity);
+	}
+	
+	@Test
+	public void FillForm_ErrorValidation() throws InterruptedException {
+		driver.hideKeyboard();
+		driver.findElement(By.xpath("//android.widget.RadioButton[@text='Female']")).click();
+		driver.findElement(By.id("android:id/text1")).click();
+  	    driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"Brazil\"));"));
+		driver.findElement(By.xpath("//android.widget.TextView[@text='Brazil']")).click();
+		driver.findElement(By.xpath("//android.widget.TextView[@text='Brazil']")).click();
+		driver.findElement(By.id("com.androidsample.generalstore:id/btnLetsShop")).click();
+        String toastMessage=driver.findElement(By.xpath("(//android.widget.Toast[1]")).getAttribute("name");
+		Assert.assertEquals(toastMessage, "please enter your name");
+	}
+		
+		@Test
+		public void FillForm_PositiveFlow()throws InterruptedException {
+
+		driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Rasha");
+		Thread.sleep(5);
+		driver.hideKeyboard();
+		driver.findElement(By.xpath("//android.widget.RadioButton[@text='Female']")).click();
+		Thread.sleep(5);
+		driver.findElement(By.id("android:id/text1")).click();
+  	    driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"Brazil\"));"));
+		driver.findElement(By.xpath("//android.widget.TextView[@text='Brazil']")).click();
+		driver.findElement(By.id("com.androidsample.generalstore:id/btnLetsShop")).click();
+		Assert.assertTrue(driver.findElements(By.xpath("(//android.widget.Toast[1]")).size()<1);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	}
